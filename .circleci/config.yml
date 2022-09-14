@@ -302,9 +302,10 @@ jobs:
                       - v0.5-{{ checksum "setup.py" }}
             - run: sudo apt-get -y update && sudo apt-get install -y libsndfile1-dev espeak-ng
             - run: pip install --upgrade pip
-            - run: pip install .[sklearn,testing,sentencepiece,vision]
-            - run: pip install tensorflow-cpu==2.9.1
-            - run: pip install tensorflow_probability
+            - run: pip install .[sklearn,tf-cpu,testing,sentencepiece,vision]
+            - run: pip uninstall tensorflow-cpu
+            - run: pip install -U tensorflow-cpu==2.9.1
+            - run: pip install -U tensorflow_probability
             - run: pip install https://github.com/kpu/kenlm/archive/master.zip
             - save_cache:
                   key: v0.5-tf-{{ checksum "setup.py" }}
