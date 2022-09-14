@@ -300,9 +300,11 @@ jobs:
                   keys:
                       - v0.5-tf-{{ checksum "setup.py" }}
                       - v0.5-{{ checksum "setup.py" }}
+            - run: pip freeze
             - run: sudo apt-get -y update && sudo apt-get install -y libsndfile1-dev espeak-ng
             - run: pip install --upgrade pip
             - run: pip install .[sklearn,tf-cpu,testing,sentencepiece,vision]
+            - run: pip uninstall -y tensorflow
             - run: pip uninstall -y tensorflow-cpu
             - run: pip install -U tensorflow-cpu==2.9.1
             - run: pip install -U tensorflow_probability
@@ -313,7 +315,7 @@ jobs:
                       - '~/.cache/pip'
             - store_artifacts:
                   path: ~/transformers/test_preparation.txt
-            - run: pip show tensorflow
+            - run: pip show tensorflow-cpu
             - run: pip show tensorflow_probability
             - run: python -m pytest -n 8 --max-worker-restart=0 --dist=loadfile -rA -s --make-reports=tests_tf tests/models/vit_mae/test_modeling_tf_vit_mae.py::TFViTMAEModelTest | tee tests_output.txt
 
