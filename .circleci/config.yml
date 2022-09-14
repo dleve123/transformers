@@ -295,21 +295,14 @@ jobs:
         parallelism: 1
         steps:
             - checkout
-            - run: git checkout b2e4b091
             - restore_cache:
                   keys:
                       - v0.5-tf-{{ checksum "setup.py" }}
                       - v0.5-{{ checksum "setup.py" }}
-            - run: pip freeze
             - run: sudo apt-get -y update && sudo apt-get install -y libsndfile1-dev espeak-ng
             - run: pip install --upgrade pip
-            - run: pip install .[sklearn,tf-cpu,testing,sentencepiece,vision]
-            - run: pip freeze
-#            - run: pip uninstall -y tensorflow
-#            - run: pip uninstall -y tensorflow-cpu
-#            - run: pip install -U tensorflow
-#            - run: pip install -U tensorflow-cpu
-            - run: pip install -U tensorflow_probability
+            - run: pip install .[sklearn,tf-cpu,testing,sentencepiece,tf-speech,vision]
+            - run: pip install tensorflow_probability
             - run: pip install https://github.com/kpu/kenlm/archive/master.zip
             - save_cache:
                   key: v0.5-tf-{{ checksum "setup.py" }}
@@ -317,9 +310,6 @@ jobs:
                       - '~/.cache/pip'
             - store_artifacts:
                   path: ~/transformers/test_preparation.txt
-            - run: pip freeze
-            - run: pip show tensorflow-cpu
-            - run: pip show tensorflow_probability
             - run: python -m pytest -n 8 --max-worker-restart=0 --dist=loadfile -rA -s --make-reports=tests_tf tests/models/vit_mae/test_modeling_tf_vit_mae.py::TFViTMAEModelTest | tee tests_output.txt
 
             - store_artifacts:
