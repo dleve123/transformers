@@ -305,11 +305,11 @@ jobs:
             - run: pip install --upgrade pip
             - run: pip install .[sklearn,tf-cpu,testing,sentencepiece,vision]
             - run: pip freeze
-            - run: pip uninstall -y tensorflow
-            - run: pip uninstall -y tensorflow-cpu
+#            - run: pip uninstall -y tensorflow
+#            - run: pip uninstall -y tensorflow-cpu
 #            - run: pip install -U tensorflow
-            - run: pip install -U tensorflow-cpu
-            - run: pip install -U tensorflow_probability
+#            - run: pip install -U tensorflow-cpu
+#            - run: pip install -U tensorflow_probability
             - run: pip install https://github.com/kpu/kenlm/archive/master.zip
             - save_cache:
                   key: v0.5-tf-{{ checksum "setup.py" }}
