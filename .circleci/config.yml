@@ -308,7 +308,7 @@ jobs:
             - run: pip uninstall -y tensorflow
 #            - run: pip uninstall -y tensorflow-cpu
 #            - run: pip install -U tensorflow
-#            - run: pip install -U tensorflow-cpu
+            - run: pip install tensorflow-cpu
             - run: pip install -U tensorflow_probability
             - run: pip install https://github.com/kpu/kenlm/archive/master.zip
             - save_cache:
